@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidERestaurant">
         <activity
-            android:name=".PlatsActivity"
+            android:name=".CatActivity"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
