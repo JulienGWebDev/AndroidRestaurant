@@ -13,9 +13,11 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-
         binding = ActivityHomeBinding.inflate(layoutInflater)
-        val buttonEntrees = binding.buttonDessert
+        val view = binding.root
+        setContentView(view)
+
+        val buttonEntrees = binding.buttonEntree
         val buttonPlats = binding.buttonPlat
         val buttonDesserts = binding.buttonDessert
         var buttonval = "Default"

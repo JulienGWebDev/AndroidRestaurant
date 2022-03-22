@@ -2,30 +2,56 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
-        android:id="@+id/name_fr"
+        android:id="@+id/nom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="name_fr"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:text=""
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.297" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/name_en"
+        android:id="@+id/prix"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="name_en"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:text=""
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nom" />
+
+    <TextView
+        android:id="@+id/nomVar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="28dp"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@+id/nom"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/priceVar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="28dp"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@+id/prix"
+        app:layout_constraintTop_toBottomOf="@+id/nomVar" />
+
+    <ImageView
+        android:id="@+id/imgSrc"
+        android:layout_width="104dp"
+        android:layout_height="102dp"
+        android:contentDescription=""
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.404" />
+        tools:srcCompat="@drawable/img" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
