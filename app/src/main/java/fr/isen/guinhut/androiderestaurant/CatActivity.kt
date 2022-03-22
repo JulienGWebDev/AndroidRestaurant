@@ -3,9 +3,11 @@ package fr.isen.guinhut.androiderestaurant
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -34,11 +36,27 @@ class CatActivity : AppCompatActivity() {
         val recyclerView: RecyclerView = binding.items
         customAdapter = CustomAdapter(itemsList)
 
+        val swipeRefreshLayout: SwipeRefreshLayout = binding.swipeRefreshLayout
+        swipeRefreshLayout.setOnRefreshListener(refreshListener);
+
+
         val layoutManager = LinearLayoutManager(applicationContext)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = customAdapter
 
         getDataFromApi()
+
+
+
+    }
+
+    private val refreshListener = SwipeRefreshLayout.OnRefreshListener {
+        val swipeRefreshLayout: SwipeRefreshLayout = binding.swipeRefreshLayout
+
+        swipeRefreshLayout.isRefreshing = true
+        clearData()
+        getDataFromApi()
+
     }
 
     private fun getDataFromApi(){
@@ -55,9 +73,11 @@ class CatActivity : AppCompatActivity() {
                 Response.Listener { response ->
                     val strResp = response.toString()
                     val apiCat= Gson().fromJson(strResp, APICat::class.java)
-                    apiCat.categorie[0]
+                    apiCat.data[0]
                     Log.d("API", strResp)
                     fillRecyclerView(apiCat)
+                    val swipeRefreshLayout: SwipeRefreshLayout = binding.swipeRefreshLayout
+                    swipeRefreshLayout.isRefreshing = false
                 },
                 Response.ErrorListener { error ->
                     Log.d("API", "error => $error")
@@ -70,14 +90,18 @@ class CatActivity : AppCompatActivity() {
         queue.add(stringReq)
     }
 
+    private fun clearData() {
+        itemsList.clear()
+    }
+
     fun fillRecyclerView(catAPI: APICat){
         if(intent.getStringExtra("buttonval")=="Plats"){
-            catAPI.categorie[1].items.forEach { item: Items -> itemsList.add(item) }
+            catAPI.data[1].items.forEach { item: Items -> itemsList.add(item) }
         }
         else if(intent.getStringExtra("buttonval")=="Desserts"){
-            catAPI.categorie[2].items.forEach { item: Items -> itemsList.add(item) }
+            catAPI.data[2].items.forEach { item: Items -> itemsList.add(item) }
         }else{
-            catAPI.categorie[0].items.forEach { item: Items -> itemsList.add(item) }
+            catAPI.data[0].items.forEach { item: Items -> itemsList.add(item) }
         }
         customAdapter.notifyDataSetChanged()
     }

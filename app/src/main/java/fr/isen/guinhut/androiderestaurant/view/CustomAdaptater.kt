@@ -30,10 +30,10 @@ internal class CustomAdapter(private var itemsList: List<Items>) : RecyclerView.
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = itemsList[position]
         holder.nameText.text=item.name_fr
-        holder.priceVar.text= item.prices[0].price.toString()+" €"
+        holder.priceVar.text= item.prices[0].price+" €"
 
         if (item.images[0].isEmpty()) {
-            holder.img.setImageResource(R.drawable.img)
+            holder.img.setImageResource(R.drawable.img2)
         } else{
             Picasso.get().load(item.images[0]).into(holder.img)
         }
