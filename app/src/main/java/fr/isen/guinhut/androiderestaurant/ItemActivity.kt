@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import fr.isen.guinhut.androiderestaurant.databinding.ActivityItemBinding
