@@ -5,15 +5,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.NonNull
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import fr.isen.guinhut.androiderestaurant.R
 import fr.isen.guinhut.androiderestaurant.databinding.ItemBinding
 import fr.isen.guinhut.androiderestaurant.models.Items
 
-internal class CustomAdapter(private var itemsList: List<Items>) : RecyclerView.Adapter<CustomAdapter.MyViewHolder>() {
+internal class CustomAdapter(private var itemsList: List<Items>, private val onClickListener: OnClickListener) : RecyclerView.Adapter<CustomAdapter.MyViewHolder>(){
 
     private lateinit var binding: ItemBinding
+
 
     internal inner class MyViewHolder(binding: ItemBinding) : RecyclerView.ViewHolder(binding.root) {
         var nameText: TextView = binding.nomVar
@@ -37,8 +39,17 @@ internal class CustomAdapter(private var itemsList: List<Items>) : RecyclerView.
         } else{
             Picasso.get().load(item.images[0]).into(holder.img)
         }
+
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(item)
+        }
+
     }
     override fun getItemCount(): Int {
         return itemsList.size
+    }
+
+    class OnClickListener(val clickListener: (meme: Items) -> Unit) {
+        fun onClick(meme: Items) = clickListener(meme)
     }
 }

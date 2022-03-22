@@ -1,5 +1,6 @@
 package fr.isen.guinhut.androiderestaurant
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
@@ -17,9 +18,10 @@ import fr.isen.guinhut.androiderestaurant.models.APICat
 import fr.isen.guinhut.androiderestaurant.models.Items
 import fr.isen.guinhut.androiderestaurant.view.CustomAdapter
 import org.json.JSONObject
+import java.io.Serializable
 import java.nio.charset.Charset
 
-class CatActivity : AppCompatActivity() {
+class CatActivity : AppCompatActivity(), Serializable {
 
     private val itemsList = ArrayList<Items>()
     private lateinit var customAdapter: CustomAdapter
@@ -34,7 +36,9 @@ class CatActivity : AppCompatActivity() {
         title = categoryName
 
         val recyclerView: RecyclerView = binding.items
-        customAdapter = CustomAdapter(itemsList)
+        customAdapter = CustomAdapter(itemsList,CustomAdapter.OnClickListener { item ->
+            onListItemClick(item)
+        })
 
         val swipeRefreshLayout: SwipeRefreshLayout = binding.swipeRefreshLayout
         swipeRefreshLayout.setOnRefreshListener(refreshListener);
@@ -43,10 +47,15 @@ class CatActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(applicationContext)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = customAdapter
-
         getDataFromApi()
 
+    }
 
+    private fun onListItemClick(item: Items) {
+        Toast.makeText(this@CatActivity, item.name_fr, Toast.LENGTH_LONG).show()
+        val intent = Intent(this, ItemActivity::class.java)
+        intent.putExtra("item", Gson().toJson(item))
+        startActivity(intent)
 
     }
 
