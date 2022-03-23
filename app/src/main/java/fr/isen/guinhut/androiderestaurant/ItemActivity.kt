@@ -1,6 +1,5 @@
 package fr.isen.guinhut.androiderestaurant
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -11,8 +10,8 @@ import fr.isen.guinhut.androiderestaurant.databinding.ActivityItemBinding
 import fr.isen.guinhut.androiderestaurant.models.Commande
 import fr.isen.guinhut.androiderestaurant.models.Items
 import fr.isen.guinhut.androiderestaurant.models.Panier
+import fr.isen.guinhut.androiderestaurant.view.ViewPagerAdapter
 import pl.polak.clicknumberpicker.ClickNumberPickerListener
-import java.io.File
 import java.io.FileWriter
 import java.io.PrintWriter
 
@@ -52,9 +51,10 @@ class ItemActivity : AppCompatActivity() {
 
         var ListChar = ""
         obj.ingredients.forEach(){
-            ListChar = it.name_fr  +", " + ListChar
             if(it.equals(obj.ingredients.last())){
-                ListChar = ListChar + "."
+                ListChar = ListChar + it.name_fr + "."
+            }else{
+                ListChar = it.name_fr  +", " + ListChar
             }
         }
         binding.textViewIngredient.text = ListChar
@@ -62,12 +62,12 @@ class ItemActivity : AppCompatActivity() {
         val picker = binding.numpick
         picker.setPickerValue(1f)
         var price = binding.button
-        var prix = picker.getValue()*obj.prices[0].price.toInt()
+        var prix = picker.getValue()*obj.prices[0].price.toFloat()
         price.setText(prix.toString()+ " €")
 
 
         picker.setClickNumberPickerListener(ClickNumberPickerListener { previousValue, currentValue, pickerClickType ->
-            var prix = (currentValue)*(obj.prices[0].price.toInt())
+            var prix = (currentValue)*(obj.prices[0].price.toFloat())
             price.setText(prix.toString()+ " €")
         })
 

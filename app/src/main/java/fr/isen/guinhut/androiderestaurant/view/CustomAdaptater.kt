@@ -35,9 +35,14 @@ internal class CustomAdapter(private var itemsList: List<Items>, private val onC
         holder.priceVar.text= item.prices[0].price+" €"
 
         if (item.images[0].isEmpty()) {
-            holder.img.setImageResource(R.drawable.img2)
+            holder.img.setImageResource(R.drawable.img3)
         } else{
-            Picasso.get().load(item.images[0]).into(holder.img)
+            if(item.name_fr.equals("Burger maison")){
+                Picasso.get().load(item.images[1]).into(holder.img)
+            }else{
+                Picasso.get().load(item.images[0]).into(holder.img)
+            }
+
         }
 
         holder.itemView.setOnClickListener {

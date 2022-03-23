@@ -22,7 +22,9 @@
         android:id="@+id/buttonEntree"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/purple_700"
         android:text="@string/entr_es"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -36,7 +38,9 @@
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="29dp"
+        android:backgroundTint="@color/purple_700"
         android:text="@string/plats"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +51,9 @@
         android:id="@+id/buttonDessert"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/purple_700"
         android:text="@string/desserts"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -70,7 +76,7 @@
         app:layout_constraintGuide_begin="20dp" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageAccueil"
         android:layout_width="196dp"
         android:layout_height="202dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonEntree"
