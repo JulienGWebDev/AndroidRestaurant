@@ -55,15 +55,15 @@ class ItemActivity : AppCompatActivity() {
         binding.textViewName.text = obj.name_fr
 
 
-        var ListChar = ""
+        var listChar = ""
         obj.ingredients.forEach(){
             if(it.equals(obj.ingredients.last())){
-                ListChar = ListChar + it.name_fr + "."
+                listChar = listChar + it.name_fr + "."
             }else{
-                ListChar = it.name_fr  +", " + ListChar
+                listChar = it.name_fr  +", " + listChar
             }
         }
-        binding.textViewIngredient.text = ListChar
+        binding.textViewIngredient.text = listChar
 
 
         val picker = binding.numpick

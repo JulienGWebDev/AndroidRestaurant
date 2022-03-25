@@ -16,7 +16,6 @@ internal class PanierAdapter(private var itemsList: MutableList<Commande>,privat
         val quantity=binding.quantite
         val totalItemPrice=binding.itemTotalPrice
         val btnDelete = binding.delete
-        var com = binding.commentaireText
 
     }
     @NonNull
