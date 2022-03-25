@@ -58,12 +58,12 @@ class PanierActivity : AppCompatActivity() {
 
     private fun updateTotalPrice(){
         var grandTotalPrice = 0.0F
-        this.panier.commandes.forEach { ligne:Commande -> grandTotalPrice+=ligne.item.prices[0].price.toFloat()*ligne.quantite }
+        this.panier.commandes.forEach { commande:Commande -> grandTotalPrice+=commande.item.prices[0].price.toFloat()*commande.quantite }
         binding.GrandTotalPrice.text=grandTotalPrice.toString()+" €"
     }
 
     private fun onListPanierClickDelete(item: Commande) {
-        Toast.makeText(this@PanierActivity, "${item.quantite} ${item.item.name_fr} enlevé(s) du panier",
+        Toast.makeText(this@PanierActivity, "${item.quantite.toInt()} ${item.item.name_fr} enlevé(s) du panier",
             Toast.LENGTH_SHORT).show()
         this.itemsList.remove(item)
         this.panier.commandes.remove(item)

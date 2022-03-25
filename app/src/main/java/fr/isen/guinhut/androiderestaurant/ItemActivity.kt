@@ -4,23 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import fr.isen.guinhut.androiderestaurant.databinding.ActivityItemBinding
-import fr.isen.guinhut.androiderestaurant.models.APICat
 import fr.isen.guinhut.androiderestaurant.models.Commande
 import fr.isen.guinhut.androiderestaurant.models.Items
 import fr.isen.guinhut.androiderestaurant.models.Panier
 import fr.isen.guinhut.androiderestaurant.view.ViewPagerAdapter
 import pl.polak.clicknumberpicker.ClickNumberPickerListener
 import java.io.File
-import java.io.FileWriter
-import java.io.IOException
-import java.io.PrintWriter
 
 
 class ItemActivity : AppCompatActivity() {
@@ -38,10 +32,13 @@ class ItemActivity : AppCompatActivity() {
         val gson = Gson()
         val strObj = intent.getStringExtra("item")
         val obj: Items = gson.fromJson(strObj, Items::class.java)
-        title = obj.name_fr
+
+        binding.toolbar.title=obj.name_fr
 
         var textList = obj.images
         viewPager = binding.viewpager
+
+
 
         mViewPagerAdapter = ViewPagerAdapter(this, textList)
 
@@ -57,10 +54,12 @@ class ItemActivity : AppCompatActivity() {
 
         var listChar = ""
         obj.ingredients.forEach(){
+            var addString = upperFirst(it.name_fr)
             if(it.equals(obj.ingredients.last())){
-                listChar = listChar + it.name_fr + "."
+
+                listChar = listChar + addString + "."
             }else{
-                listChar = it.name_fr  +", " + listChar
+                listChar = addString  +", " + listChar
             }
         }
         binding.textViewIngredient.text = listChar
@@ -69,6 +68,7 @@ class ItemActivity : AppCompatActivity() {
         val picker = binding.numpick
         picker.setPickerValue(1f)
         var price = binding.button
+        var panierButton = binding.btnPanier
 
         var prix = picker.getValue()*obj.prices[0].price.toFloat()
         price.setText(prix.toString()+ " €")
@@ -78,32 +78,29 @@ class ItemActivity : AppCompatActivity() {
             price.setText(prix.toString()+ " €")
         })
 
+        binding.badgePanier.text=initPanier()
 
 
-
-        //clic sur bouton ajout au panier
         price.setOnClickListener {
-            val snack = Snackbar.make(it,"${picker.value.toInt()} ${obj.name_fr}  ajouté au panier",Snackbar.LENGTH_LONG)
+            val snack = Snackbar.make(it,"Ajouté au panier",Snackbar.LENGTH_LONG)
             snack.show()
             binding.badgePanier.text=ecriturePanier(binding.numpick.value,obj)
         }
 
-        //clic sur le bouton panier
-        binding.btnPanier.setOnClickListener {
+        panierButton.setOnClickListener {
             this.panier=lecturePanier()
-            Toast.makeText(this@ItemActivity, panier.commandes.size.toString(), Toast.LENGTH_SHORT).show()
             val intent = Intent(this,PanierActivity::class.java)
             startActivity(intent)
         }
 
-        binding.toolbar.title=obj.name_fr
+
 
 
     }
 
     override fun onRestart() {
-
         super.onRestart()
+        binding.badgePanier.text=panier.commandes.size.toString()
     }
 
 
@@ -138,6 +135,16 @@ class ItemActivity : AppCompatActivity() {
             return Panier(ArrayList())
         }
     }
+
+    private fun upperFirst(word: String): String {
+        var firstLetStr: String = word.substring(0, 1)
+        val remLetStr: String = word.substring(1)
+        firstLetStr = firstLetStr.uppercase()
+        return firstLetStr + remLetStr
+    }
+
+
+
     private fun ecriturePanier(value: Float, item:Items): String {
         //sauvegarde du panier en json dans les fichiers
         val commande = Commande(value,item)
@@ -163,6 +170,30 @@ class ItemActivity : AppCompatActivity() {
         }
         return panier.commandes.size.toString()
     }
+
+    private fun initPanier(): String {
+
+        //lecture du fichier
+        val filename1 = "panier.json"
+        val file = File(binding.root.context.filesDir, filename1)
+        //si le fichier existe on lit le panier directement dedans
+        panier = if(file.exists()){
+            val contents = file.readText()
+            Gson().fromJson(contents,Panier::class.java)
+        }
+        //si le fichier n'existe pas on cree un panier vide
+        else{
+            Panier(ArrayList())
+        }
+        val panierJson = Gson().toJson(panier)
+        Log.d("Panier",panierJson)
+        val filename = "panier.json"
+        this.binding.root.context.openFileOutput(filename, Context.MODE_PRIVATE).use {
+            it.write(panierJson.toByteArray())
+        }
+        return panier.commandes.size.toString()
+    }
+
 
 
 

@@ -1,5 +1,6 @@
 package fr.isen.guinhut.androiderestaurant
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -15,15 +16,20 @@ import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import fr.isen.guinhut.androiderestaurant.databinding.ActivityCatBinding
 import fr.isen.guinhut.androiderestaurant.models.APICat
+import fr.isen.guinhut.androiderestaurant.models.Commande
 import fr.isen.guinhut.androiderestaurant.models.Items
+import fr.isen.guinhut.androiderestaurant.models.Panier
 import fr.isen.guinhut.androiderestaurant.view.CustomAdapter
 import org.json.JSONObject
+import java.io.File
 import java.io.Serializable
 import java.nio.charset.Charset
 
 class CatActivity : AppCompatActivity(), Serializable {
 
     private val itemsList = ArrayList<Items>()
+    private val commandes = ArrayList<Commande>()
+    private var panier = Panier(commandes)
     private lateinit var customAdapter: CustomAdapter
     private lateinit var binding : ActivityCatBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +39,8 @@ class CatActivity : AppCompatActivity(), Serializable {
         setContentView(view)
 
         val categoryName = intent.getStringExtra("buttonval")
-        title = categoryName
+
+        binding.toolbar.title=categoryName
 
         val recyclerView: RecyclerView = binding.items
         customAdapter = CustomAdapter(itemsList,CustomAdapter.OnClickListener { item ->
@@ -49,14 +56,57 @@ class CatActivity : AppCompatActivity(), Serializable {
         recyclerView.adapter = customAdapter
         getDataFromApi()
 
+        binding.badgePanier.text=initPanier()
+
+        //clic sur le bouton panier
+        binding.btnPanier.setOnClickListener {
+            this.panier=lecturePanier()
+            val intent = Intent(this,PanierActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun onListItemClick(item: Items) {
-        Toast.makeText(this@CatActivity, item.name_fr, Toast.LENGTH_LONG).show()
         val intent = Intent(this, ItemActivity::class.java)
         intent.putExtra("item", Gson().toJson(item))
         startActivity(intent)
 
+    }
+
+    private fun lecturePanier(): Panier {
+        //lecture fichier panier
+        val filename = "panier.json"
+        val file = File(binding.root.context.filesDir, filename)
+        if(file.exists()){
+            val contents = file.readText()
+            return Gson().fromJson(contents, Panier::class.java)
+        }else{
+            return Panier(ArrayList())
+        }
+    }
+
+    private fun initPanier(): String {
+
+        //lecture du fichier
+        val filename1 = "panier.json"
+        val file = File(binding.root.context.filesDir, filename1)
+        //si le fichier existe on lit le panier directement dedans
+        panier = if(file.exists()){
+            val contents = file.readText()
+            Gson().fromJson(contents,Panier::class.java)
+        }
+        //si le fichier n'existe pas on cree un panier vide
+        else{
+            Panier(ArrayList())
+        }
+        val panierJson = Gson().toJson(panier)
+        Log.d("Panier",panierJson)
+        val filename = "panier.json"
+        this.binding.root.context.openFileOutput(filename, Context.MODE_PRIVATE).use {
+            it.write(panierJson.toByteArray())
+        }
+        return panier.commandes.size.toString()
     }
 
     private val refreshListener = SwipeRefreshLayout.OnRefreshListener {

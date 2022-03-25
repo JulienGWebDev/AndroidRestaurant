@@ -37,20 +37,17 @@ class HomeActivity : AppCompatActivity() {
         }
 
         buttonEntrees.setOnClickListener {
-            Toast.makeText(this@HomeActivity, "Entrées", Toast.LENGTH_LONG).show()
             buttonval  = "Entrees"
             anotherOne(buttonval)
         }
 
         buttonPlats.setOnClickListener {
-            Toast.makeText(this@HomeActivity, "Plats", Toast.LENGTH_LONG).show()
             buttonval  = "Plats"
             anotherOne(buttonval)
 
         }
 
         buttonDesserts.setOnClickListener {
-            Toast.makeText(this@HomeActivity, "Desserts", Toast.LENGTH_LONG).show()
             buttonval  = "Desserts"
             anotherOne(buttonval)
         }

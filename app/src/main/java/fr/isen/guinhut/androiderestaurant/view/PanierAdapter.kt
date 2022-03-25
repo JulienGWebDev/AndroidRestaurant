@@ -26,7 +26,7 @@ internal class PanierAdapter(private var itemsList: MutableList<Commande>,privat
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = itemsList[position]
         holder.name.text=item.item.name_fr
-        holder.quantity.text=item.quantite.toString()
+        holder.quantity.text=item.quantite.toInt().toString()
         holder.totalItemPrice.text=(item.item.prices[0].price.toFloat()*item.quantite).toString()+" €"
         holder.btnDelete.setOnClickListener {
             onClickListener.onClick(item)
