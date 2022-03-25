@@ -52,19 +52,8 @@ class PanierActivity : AppCompatActivity() {
         //boutton passer commande
         binding.button.setOnClickListener {
 
-            //startActivity(Intent(Intent.ACTION_CALL, Uri.parse("tel:0641973974")))
-            var cmd ="Bravo Brice 20/20 - Le prof d'android. Voici le contenu de ma commande :\n"
-            panier.commandes.forEach { ligne:Commande -> cmd+="${ligne.item.name_fr} * ${ligne.quantite} (${ligne.com})\n" }
-            sendSMS("+33641973974", cmd)
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/in/brice-hechon/")))
+
         }
-    }
-
-
-    private fun sendSMS(phoneNumber: String, message: String) {
-
-        val sentPI: PendingIntent = PendingIntent.getBroadcast(this, 0, Intent("SMS_SENT"), 0)
-        SmsManager.getDefault().sendTextMessage(phoneNumber, null, message, sentPI, null)
     }
 
     private fun updateTotalPrice(){

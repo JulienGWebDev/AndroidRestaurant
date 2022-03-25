@@ -35,7 +35,6 @@ class ItemActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-
         val gson = Gson()
         val strObj = intent.getStringExtra("item")
         val obj: Items = gson.fromJson(strObj, Items::class.java)
@@ -86,16 +85,12 @@ class ItemActivity : AppCompatActivity() {
         price.setOnClickListener {
             val snack = Snackbar.make(it,"${picker.value.toInt()} ${obj.name_fr}  ajouté au panier",Snackbar.LENGTH_LONG)
             snack.show()
-            val commentaire:String=binding.commentaireInput.text.toString()
-            binding.badgePanier.text=ecriturePanier(binding.numpick.value,obj, commentaire)
+            binding.badgePanier.text=ecriturePanier(binding.numpick.value,obj)
         }
 
         //clic sur le bouton panier
         binding.btnPanier.setOnClickListener {
             this.panier=lecturePanier()
-            if(binding.commentaireInput.text.isNullOrBlank() || binding.commentaireInput.text.isNullOrEmpty()){
-                binding.commentaireInput.setText("")
-            }
             Toast.makeText(this@ItemActivity, panier.commandes.size.toString(), Toast.LENGTH_SHORT).show()
             val intent = Intent(this,PanierActivity::class.java)
             startActivity(intent)
@@ -105,6 +100,13 @@ class ItemActivity : AppCompatActivity() {
 
 
     }
+
+    override fun onRestart() {
+
+        super.onRestart()
+    }
+
+
     var viewPagerPageChangeListener: ViewPager.OnPageChangeListener =
         object : ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {
@@ -136,9 +138,9 @@ class ItemActivity : AppCompatActivity() {
             return Panier(ArrayList())
         }
     }
-    private fun ecriturePanier(value: Float, item:Items,com:String): String {
+    private fun ecriturePanier(value: Float, item:Items): String {
         //sauvegarde du panier en json dans les fichiers
-        val lignePanier= Commande(value,item,com)
+        val commande = Commande(value,item)
         //lecture du fichier
         val filename1 = "panier.json"
         val file = File(binding.root.context.filesDir, filename1)
@@ -152,7 +154,7 @@ class ItemActivity : AppCompatActivity() {
             Panier(ArrayList())
         }
         //puis on ajoute notre element au panier et on ecrit le fichier
-        panier.commandes.add(lignePanier)
+        panier.commandes.add(commande)
         val panierJson = Gson().toJson(panier)
         Log.d("Panier",panierJson)
         val filename = "panier.json"

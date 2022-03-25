@@ -11,11 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/purple_700"
+        app:title="Produit"
         android:minHeight="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="#FFFFFF">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,28 +27,32 @@
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="5dp">
 
-            <TextView
+            <ImageView
                 android:id="@+id/btn_panier"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:paddingEnd="30dip"
-                android:text="PA"
-                android:textSize="34sp"
+                android:layout_width="56dp"
+                android:layout_height="48dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/panier" />
 
             <TextView
                 android:id="@+id/badge_panier"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="-45dp"
+                android:layout_width="56dp"
+                android:layout_height="28dp"
                 android:text="0"
-                android:textColor="#FB0000"
+                android:textAlignment="center"
+                android:textColor="@color/purple_200"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/btn_panier"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/btn_panier" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.Toolbar>
@@ -102,7 +108,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/purple_700"
-        android:text="Button"
+        android:text="Commander"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -110,28 +116,6 @@
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/numpick" />
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
-        app:boxBackgroundColor="#534545"
-        app:boxStrokeColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numpick">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/commentaire_input"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:backgroundTintMode="add"
-            android:hint="commentaire_s"
-            android:textColorHint="#546E7A" />
-    </com.google.android.material.textfield.TextInputLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

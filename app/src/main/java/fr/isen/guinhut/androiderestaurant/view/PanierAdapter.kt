@@ -32,7 +32,7 @@ internal class PanierAdapter(private var itemsList: MutableList<Commande>,privat
         holder.btnDelete.setOnClickListener {
             onClickListener.onClick(item)
         }
-        holder.com.text="Commentaire :${item.com}"
+
     }
     override fun getItemCount(): Int {
         return itemsList.size
