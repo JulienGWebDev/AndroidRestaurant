@@ -14,8 +14,12 @@
         android:theme="@style/Theme.AndroidERestaurant"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ItemActivity"
+            android:name=".PanierActivity"
             android:exported="false" />
+        <activity
+            android:name=".ItemActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />/>
         <activity
             android:name=".CatActivity"
             android:exported="false" />
