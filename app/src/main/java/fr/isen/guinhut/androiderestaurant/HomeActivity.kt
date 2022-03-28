@@ -24,6 +24,7 @@ class HomeActivity : AppCompatActivity() {
         val buttonEntrees = binding.buttonEntree
         val buttonPlats = binding.buttonPlat
         val buttonDesserts = binding.buttonDessert
+        val buttonBle = binding.buttonBLE
         var buttonval = "Default"
         val easterEgg = binding.imageAccueil
         mediaPlayer = MediaPlayer.create(this, R.raw.frv)
@@ -50,6 +51,11 @@ class HomeActivity : AppCompatActivity() {
         buttonDesserts.setOnClickListener {
             buttonval  = "Desserts"
             anotherOne(buttonval)
+        }
+
+        buttonBle.setOnClickListener {
+            val intent = Intent(this, BLEScanActivity::class.java)
+            startActivity(intent)
         }
 
     }
