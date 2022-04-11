@@ -152,11 +152,11 @@ class BLEServiceAdapter (private val bleServices:List<BLEService>,
                 it.value?.contentEquals(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE) ?: false
             }
             if (isNotificationEnable) {
-                propertyAction.setBackgroundColor(ContextCompat.getColor(context, R.color.teal_200))
-                propertyAction.setTextColor(ContextCompat.getColor(context, android.R.color.white))
+                propertyAction.setBackgroundColor(ContextCompat.getColor(context, android.R.color.white))
+                propertyAction.setTextColor(ContextCompat.getColor(context, R.color.purple_700))
             } else {
-                propertyAction.setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent))
-                propertyAction.setTextColor(ContextCompat.getColor(context, R.color.purple_500))
+                propertyAction.setBackgroundColor(ContextCompat.getColor(context, R.color.purple_700))
+                propertyAction.setTextColor(ContextCompat.getColor(context, R.color.white))
             }
             propertyAction.setOnClickListener {
                 propertyCallBack.invoke(characteristic, !isNotificationEnable)

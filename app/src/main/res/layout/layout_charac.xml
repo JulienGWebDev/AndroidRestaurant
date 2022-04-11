@@ -12,7 +12,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="type_chara"
+        android:text="@string/type_chara"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,10 +20,12 @@
         android:id="@+id/ecrire"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:text="ecrire"
+        android:backgroundTint="@color/purple_700"
+        android:text="@string/ecrire"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lire"
         app:layout_constraintTop_toBottomOf="@+id/value" />
@@ -32,9 +34,11 @@
         android:id="@+id/lire"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:text="lire"
+        android:backgroundTint="@color/purple_700"
+        android:textColor="@color/white"
+        android:text="@string/lire"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/value" />
 
@@ -42,9 +46,11 @@
         android:id="@+id/notif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:text="notifier"
+        android:backgroundTint="@color/purple_700"
+        android:text="@string/notifier"
+        android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/ecrire"
         app:layout_constraintTop_toBottomOf="@+id/value" />
 
@@ -54,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:text="uuid"
+        android:text="@string/uuid"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/type_chara" />
 
@@ -64,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:text="proprietes"
+        android:text="@string/proprietes"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/uuid_chara" />
 
@@ -74,7 +80,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:text="valeur"
+        android:text="@string/valeur"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/properties" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ecrire" />
 </androidx.constraintlayout.widget.ConstraintLayout>
