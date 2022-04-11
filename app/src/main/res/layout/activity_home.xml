@@ -37,7 +37,7 @@
         android:id="@+id/buttonPlat"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
+        android:layout_marginTop="25dp"
         android:backgroundTint="@color/purple_700"
         android:text="@string/plats"
         android:textColor="@color/white"
@@ -51,6 +51,7 @@
         android:id="@+id/buttonDessert"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
         android:backgroundTint="@color/purple_700"
         android:text="DESSERTS"
         android:textColor="@color/white"
@@ -58,20 +59,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonPlat"
-        app:layout_constraintVertical_bias="0.086" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/buttonBLE"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
         android:backgroundTint="@color/purple_700"
         android:text="SCAN BLE"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonPlat"
-        app:layout_constraintVertical_bias="0.29" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonDessert"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"

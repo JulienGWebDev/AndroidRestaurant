@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/julie/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_bledevice.xml" value="0.536" />
         <entry key="..\:/Users/julie/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_blescan.xml" value="0.176" />
         <entry key="..\:/Users/julie/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_cat.xml" value="0.176" />
         <entry key="..\:/Users/julie/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_home.xml" value="0.176" />
@@ -12,8 +13,10 @@
         <entry key="..\:/Users/julie/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_plats.xml" value="0.264" />
         <entry key="..\:/Users/julie/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/frag_content.xml" value="0.20863616930312098" />
         <entry key="..\:/Users/julie/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/item.xml" value="0.4" />
-        <entry key="..\:/Users/julie/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/item_ble.xml" value="0.536" />
+        <entry key="..\:/Users/julie/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/item_ble.xml" value="0.6" />
         <entry key="..\:/Users/julie/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/item_panier.xml" value="0.2" />
+        <entry key="..\:/Users/julie/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/layout_charac.xml" value="0.2" />
+        <entry key="..\:/Users/julie/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/layout_service.xml" value="0.4" />
         <entry key="..\:/Users/julie/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.124" />
       </map>
     </option>

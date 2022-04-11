@@ -51,4 +51,6 @@ dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     implementation 'com.github.polok:clicknumberpicker:0.1.2'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
+    implementation 'com.thoughtbot:expandablerecyclerview:1.0'
+
 }

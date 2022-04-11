@@ -2,14 +2,14 @@ package fr.isen.guinhut.androiderestaurant.view
 
 import android.annotation.SuppressLint
 import android.bluetooth.le.ScanResult
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import fr.isen.guinhut.androiderestaurant.databinding.ItemBleBinding
-import fr.isen.guinhut.androiderestaurant.models.Commande
 
-internal class BLEAdapter(private var itemsList: MutableList<ScanResult>) : RecyclerView.Adapter<BLEAdapter.MyViewHolder>() {
+internal class BLEAdapter(private var itemsList: MutableList<ScanResult>, private val onClickListener: OnClickListener,private val context: Context) : RecyclerView.Adapter<BLEAdapter.MyViewHolder>() {
 
     private lateinit var binding: ItemBleBinding
 
@@ -28,12 +28,22 @@ internal class BLEAdapter(private var itemsList: MutableList<ScanResult>) : Recy
         val item = itemsList[position]
         holder.mac.text =  item.device.address
         holder.name.text =  item.device.name
-        holder.name.text =  item.device.name
+        holder.numDis.text =  item.rssi.toString()
+
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(item)
+        }
+    }
+    fun clearResults() {
+        itemsList.clear()
     }
     override fun getItemCount(): Int {
         return itemsList.size
     }
 
+    class OnClickListener(val clickListener: (item: ScanResult) -> Unit) {
+        fun onClick(item: ScanResult) = clickListener(item)
+    }
 
 
 }

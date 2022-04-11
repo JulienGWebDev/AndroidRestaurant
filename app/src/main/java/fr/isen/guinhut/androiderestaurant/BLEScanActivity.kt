@@ -11,21 +11,24 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.isen.guinhut.androiderestaurant.databinding.ActivityBlescanBinding
-import fr.isen.guinhut.androiderestaurant.models.Commande
 import fr.isen.guinhut.androiderestaurant.view.BLEAdapter
-import fr.isen.guinhut.androiderestaurant.view.PanierAdapter
 
 
 class BLEScanActivity : AppCompatActivity() {
     companion object{
         private const val ALL_PERMISSION_REQUEST_CODE = 1
+        private const val DEVICE_KEY="Device"
+        private const val MAX_RSSI = 90
+        private const val SCAN_DELAY = 15000
     }
     private var scanning:Boolean=false
     private lateinit var binding : ActivityBlescanBinding
@@ -34,7 +37,8 @@ class BLEScanActivity : AppCompatActivity() {
         bluetoothManager.adapter
     }
 
-    private val itemsList = ArrayList<ScanResult>()
+    private var itemsList = ArrayList<ScanResult>()
+
     private lateinit var listBleAdapter: BLEAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,12 +61,28 @@ class BLEScanActivity : AppCompatActivity() {
 
 
         val recyclerBle: RecyclerView = binding.Recyble
-        listBleAdapter = BLEAdapter(itemsList)
+        listBleAdapter = BLEAdapter(itemsList, BLEAdapter.OnClickListener { item ->
+            onListBleClick(item)
+        },
+            this@BLEScanActivity)
         val layoutManager = LinearLayoutManager(applicationContext)
         recyclerBle.layoutManager = layoutManager
         recyclerBle.adapter = listBleAdapter
 
     }
+
+    @SuppressLint("MissingPermission")
+    private fun onListBleClick(item: ScanResult) {
+        if(item.device.name.isNullOrEmpty()){
+            Toast.makeText(this@BLEScanActivity, "Unknown_Name", Toast.LENGTH_SHORT).show()
+        }else{
+            Toast.makeText(this@BLEScanActivity, item.device.name.toString(), Toast.LENGTH_SHORT).show()
+        }
+        val intent = Intent(this, BLEDeviceActivity::class.java)
+        intent.putExtra(DEVICE_KEY, item.device)
+        startActivity(intent)
+    }
+
     override fun onStop(){
         super.onStop()
         startLeScanBLEWithPermission(false)
@@ -104,6 +124,14 @@ class BLEScanActivity : AppCompatActivity() {
 
         bluetoothAdapter?.bluetoothLeScanner?.apply {
             if(enable) {
+                val handler = Handler(mainLooper)
+                handler.postDelayed({
+                    scanning=false// stop scanning here
+                    binding.playpause.setImageResource(R.drawable.play)
+                    binding.launchText.text = "Lancer le scan"
+                    binding.progressBar.isIndeterminate = false
+                    stopScan(scanCallBack)
+                }, SCAN_DELAY.toLong())
                 scanning=true
                 startScan(scanCallBack)
             }else{
@@ -121,31 +149,41 @@ class BLEScanActivity : AppCompatActivity() {
 
         }
     }
+
     private fun addToList(res:ScanResult){
         val index:Int = itemsList.indexOfFirst{ it.device.address==res.device.address }
         if(index == -1){
-            itemsList.add(res)
+            if(kotlin.math.abs(res.rssi)< MAX_RSSI) {
+                itemsList.add(res)
+            }
         }else{
-            itemsList[index]=res
+            if(kotlin.math.abs(res.rssi)> MAX_RSSI){
+                itemsList.remove(res)
+            }else {
+                itemsList[index] = res
+            }
         }
+
         itemsList.sortBy { kotlin.math.abs(it.rssi) }
         listBleAdapter.notifyDataSetChanged()
     }
 
     private fun displayNoBleAvailable() {
         binding.playpause.isVisible=false
-        binding.launchText.text="NO GOOD"
+        binding.launchText.text="Lancer le scan"
         binding.progressBar.isIndeterminate=true
     }
 
     private fun btnPlayClick() {
         if (scanning) {
             binding.playpause.setImageResource(R.drawable.pause)
-            binding.launchText.text = "Scanning..."
+            binding.launchText.text = "Scan en cours..."
             binding.progressBar.isIndeterminate = true
+            listBleAdapter.clearResults()
+            listBleAdapter.notifyDataSetChanged()
         } else {
             binding.playpause.setImageResource(R.drawable.play)
-            binding.launchText.text = "Go scan"
+            binding.launchText.text = "Lancer le scan"
             binding.progressBar.isIndeterminate = false
         }
     }
